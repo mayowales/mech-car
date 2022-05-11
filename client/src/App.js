@@ -7,12 +7,15 @@ import Login from "./components/Login";
 import Profile from "./components/Profile";
 import axios from "axios";
 // import { logout } from "./services/auth";
+import { getAllMech } from "./services/userApi";
 import Navbar from "./components/Navbar.jsx";
 import MechDetails from "./components/MechDetails";
 import Update from "./components/Update";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = React.useState(null);
+  const [mechList, setMechList] = React.useState([]);
+
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     axios
@@ -24,6 +27,15 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
+  React.useEffect(() => {
+    getAllMech()
+      .then((response) => {
+        const mechanics = response;
+        setMechList(mechanics);
+        console.log(mechanics);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   // const logoutHandler = () => {
   //   logout()
   //     .then(() => prop.setLoggedInUser(null))
@@ -46,7 +58,10 @@ function App() {
           />
           <div>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route
+                path="/"
+                element={<Home mechList={mechList} setMechList={setMechList} />}
+              />
               <Route
                 path="/signup"
                 element={
@@ -67,7 +82,13 @@ function App() {
               />
               <Route
                 path="/profile"
-                element={<Profile loggedInUser={loggedInUser} />}
+                element={
+                  <Profile
+                    loggedInUser={loggedInUser}
+                    mechList={mechList}
+                    setMechList={setMechList}
+                  />
+                }
               />
               <Route path="/profile/:id" element={<MechDetails />} />
               <Route

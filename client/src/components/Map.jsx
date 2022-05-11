@@ -8,7 +8,7 @@ import {
 } from "@react-google-maps/api";
 import Location from "../components/Location";
 
-const Map = () => {
+const Map = (props) => {
   const [currentLocation, setCurrentLocation] = useState();
   const mapRef = useRef();
   const center = useMemo(
@@ -25,6 +25,11 @@ const Map = () => {
     }),
     []
   );
+  console.log(props.mechList[0].streetName);
+  const allMech = props.mechList.map((mech) => {
+    return mech.streetName + mech.streetNumber;
+  });
+  console.log(allMech);
   const onLoad = useCallback((map) => (mapRef.current = map), []);
 
   return (
@@ -50,6 +55,30 @@ const Map = () => {
           onLoad={onLoad}
         >
           {currentLocation && <Marker position={currentLocation} />}
+          {props.mechList &&
+            props.mechList.map((mech) => {
+              console.log(
+                mech.streetName +
+                  mech.streetNumber +
+                  ", " +
+                  mech.city +
+                  ", Germany"
+              );
+              return (
+                <Marker
+                  key={mech._id}
+                  position={
+                    (mech.streetName +
+                      mech.streetNumber +
+                      ", " +
+                      mech.city +
+                      ", Germany",
+                    currentLocation)
+                  }
+                />
+              );
+            })}
+          console.log(address.streetName)
         </GoogleMap>
       </div>
     </div>

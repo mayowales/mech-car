@@ -1,22 +1,22 @@
 import React from "react";
-import { getAllMech } from "../services/userApi.js";
+
 import MechanicList from "./MechanicList";
 
 const Profile = (props) => {
-  const [mechList, setMechList] = React.useState([]);
+  //   const [mechList, setMechList] = React.useState([]);
   console.log("string:", props);
 
-  React.useEffect(() => {
-    getAllMech()
-      .then((response) => {
-        const mechanics = response;
-        setMechList(mechanics);
-        console.log(mechanics);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  //   React.useEffect(() => {
+  //     getAllMech()
+  //       .then((response) => {
+  //         const mechanics = response;
+  //         setMechList(mechanics);
+  //         console.log(mechanics);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }, []);
 
-  const listOfAllMech = mechList.map((mech) => {
+  const listOfAllMech = props.mechList.map((mech) => {
     return <MechanicList key={mech._id} mech={mech} />;
   });
 
