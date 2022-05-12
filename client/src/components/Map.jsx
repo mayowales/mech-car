@@ -11,6 +11,10 @@ import { getGeocode, getLatLng } from "use-places-autocomplete";
 
 const Map = (props) => {
   const [currentLocation, setCurrentLocation] = useState();
+  const [mechLocations, setMechLocations] = useState([]);
+  const [selectedMechanic, setSelectedMechanic] = useState(null);
+
+
   const mapRef = useRef();
   const center = useMemo(
     () => ({
@@ -26,39 +30,30 @@ const Map = (props) => {
     }),
     []
   );
-  console.log(props.mechList);
-  const allMech = props.mechList.map((mech) => {
-    return mech.streetName + mech.streetNumber;
-  });
-  console.log(allMech);
 
   const onLoad = useCallback((map) => (mapRef.current = map), []);
 
-  const mechLocations = props.mechList.map((mech) => {
+
+  props.mechList.forEach((mech) => {
     const parameter = {
       address: mech.streetName + " ," + mech.streetNumber,
     };
     getGeocode(parameter).then((results) => {
-      console.log(results);
-      try {
-        const { lat, lng } = getLatLng(results[0]);
-        return { lat, lng };
-        {
-          /* props.setMechList({ lat, lng }); */
-        }
-      } catch (error) {
-        return null;
-      }
-    });
+      const { lat, lng } = getLatLng(results[0]);
+      if (!mechLocations.find(m => m._id === mech._id)) {
+        setMechLocations([...mechLocations, { lat, lng, ...mech }])
+      };
+    }).catch(error => console.log(error));
   });
 
-  console.log(mechLocations);
+  const handleMechMarkerClick = (selectedMech) => { setSelectedMechanic(selectedMech) }
 
   return (
     <div className="container">
       <div className="location">
         <h4>Enter your location here:</h4>
         <Location
+          selectedMechanic={selectedMechanic}
           setCurrentLocation={(position) => {
             setCurrentLocation(position);
             mapRef.current.panTo(position);
@@ -77,6 +72,7 @@ const Map = (props) => {
           onLoad={onLoad}
         >
           {currentLocation && <Marker position={currentLocation} />}
+          {mechLocations.map(mechanic => <Marker key={mechanic._id} position={{ lat: mechanic.lat, lng: mechanic.lng }} onClick={() => handleMechMarkerClick(mechanic)} />)}
         </GoogleMap>
       </div>
     </div>

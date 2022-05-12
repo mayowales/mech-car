@@ -36,7 +36,7 @@ const Location = (props) => {
     props.setCurrentLocation({ lat, lng });
   };
 
-  return (
+  return (<>
     <Combobox onSelect={handleSelect}>
       <ComboboxInput
         value={value}
@@ -53,6 +53,13 @@ const Location = (props) => {
         </ComboboxList>
       </ComboboxPopover>
     </Combobox>
+    {props.selectedMechanic &&
+      <div>
+        <h3>{props.selectedMechanic.name}</h3>
+        <p>{`${props.selectedMechanic.streetName} ${props.selectedMechanic.streetNumber}, ${props.selectedMechanic.city}`}</p>
+      </div>
+    }
+  </>
   );
 };
 
