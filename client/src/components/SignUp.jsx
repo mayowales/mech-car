@@ -21,7 +21,7 @@ const SignUp = (props) => {
     signup(role, name, email, password)
       .then((response) => {
         if (response.status === 200) {
-          props.setLoggedInUser(response.dta);
+          props.setLoggedInUser(response.data);
           console.log(props);
           navigate("/");
         }

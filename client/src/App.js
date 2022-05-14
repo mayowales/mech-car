@@ -60,7 +60,13 @@ function App() {
             <Routes>
               <Route
                 path="/"
-                element={<Home mechList={mechList} setMechList={setMechList} />}
+                element={
+                  <Home
+                    mechList={mechList}
+                    setMechList={setMechList}
+                    loggedInUser={loggedInUser}
+                  />
+                }
               />
               <Route
                 path="/signup"

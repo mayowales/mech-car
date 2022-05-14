@@ -1,12 +1,6 @@
 import React from "react";
 import { useState, useMemo, useCallback, useRef } from "react";
-import {
-  GoogleMap,
-  Marker,
-  DirectionsRenderer,
-  DirectionsService,
-  MarkerClusterer,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, DirectionsRenderer } from "@react-google-maps/api";
 import Location from "../components/Location";
 import { getGeocode, getLatLng } from "use-places-autocomplete";
 
@@ -33,30 +27,33 @@ const Map = (props) => {
   );
 
   const onLoad = useCallback((map) => (mapRef.current = map), []);
-  console.log(props.mechList);
-  props.mechList.forEach((mech) => {
-    const parameter = {
-      address: mech.streetName + " ," + mech.streetNumber,
-    };
-    getGeocode(parameter)
-      .then((results) => {
-        const { lat, lng } = getLatLng(results[0]);
-        if (!mechLocations.find((m) => m._id === mech._id)) {
-          console.log(mech._id);
-          setMechLocations([...mechLocations, { lat, lng, ...mech }]);
-        }
+
+  const getAllLocations = async function (arr) {
+    return await Promise.all(
+      arr.map(async (mech) => {
+        const parameter = {
+          address: mech.streetName + " ," + mech.streetNumber,
+        };
+        const geoCode = await getGeocode(parameter);
+        const { lat, lng } = getLatLng(geoCode[0]);
+        return { ...mech, lat, lng };
       })
-      .catch((error) => console.log(error));
-  });
-  console.log(mechLocations);
+    );
+  };
+
+  getAllLocations(props.mechList)
+    .then((locations) => setMechLocations(locations))
+    .catch((error) => console.log(error));
+
   const handleMechMarkerClick = (selectedMech) => {
     setSelectedMechanic(selectedMech);
   };
 
   const fetchDirections = (position) => {
     if (!currentLocation) return;
-    console.log(position);
     const service = new window.google.maps.DirectionsService();
+    // clear rpoute
+
     service.route(
       {
         origin: position,
@@ -70,7 +67,6 @@ const Map = (props) => {
       }
     );
   };
-  console.log(directions);
   return (
     <div className="container">
       <div className="location">
@@ -95,14 +91,7 @@ const Map = (props) => {
           options={options}
           onLoad={onLoad}
         >
-          {directions && (
-            <DirectionsRenderer
-              directions={directions}
-              onDirectionsChanged={() => {
-                return;
-              }}
-            />
-          )}
+          {directions && <DirectionsRenderer directions={directions} />}
           {currentLocation && (
             <Marker
               position={currentLocation}
