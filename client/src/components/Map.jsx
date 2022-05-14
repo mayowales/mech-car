@@ -48,7 +48,7 @@ const Map = (props) => {
       })
       .catch((error) => console.log(error));
   });
-
+  console.log(mechLocations);
   const handleMechMarkerClick = (selectedMech) => {
     setSelectedMechanic(selectedMech);
   };
@@ -95,7 +95,14 @@ const Map = (props) => {
           options={options}
           onLoad={onLoad}
         >
-          {directions && <DirectionsRenderer directions={directions} />}
+          {directions && (
+            <DirectionsRenderer
+              directions={directions}
+              onDirectionsChanged={() => {
+                return;
+              }}
+            />
+          )}
           {currentLocation && (
             <Marker
               position={currentLocation}
