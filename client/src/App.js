@@ -32,7 +32,6 @@ function App() {
       .then((response) => {
         const mechanics = response;
         setMechList(mechanics);
-        console.log(mechanics);
       })
       .catch((err) => console.log(err));
   }, []);

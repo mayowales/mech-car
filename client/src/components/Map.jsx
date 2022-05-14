@@ -33,21 +33,21 @@ const Map = (props) => {
   );
 
   const onLoad = useCallback((map) => (mapRef.current = map), []);
-  console.log(props.mechList);
-  props.mechList.forEach((mech) => {
-    const parameter = {
-      address: mech.streetName + " ," + mech.streetNumber,
-    };
-    getGeocode(parameter)
-      .then((results) => {
-        const { lat, lng } = getLatLng(results[0]);
-        if (!mechLocations.find((m) => m._id === mech._id)) {
-          console.log(mech._id);
-          setMechLocations([...mechLocations, { lat, lng, ...mech }]);
-        }
-      })
-      .catch((error) => console.log(error));
-  });
+
+  const getAllLocations = async function (arr) {
+    return await Promise.all(arr.map(async (mech) => {
+      const parameter = {
+        address: mech.streetName + " ," + mech.streetNumber,
+      };
+      const geoCode = await getGeocode(parameter);
+      const { lat, lng } = getLatLng(geoCode[0]);
+      return { ...mech, lat, lng }
+    }));
+  };
+
+  getAllLocations(props.mechList)
+    .then(locations => setMechLocations(locations))
+    .catch(error => console.log(error));
 
   const handleMechMarkerClick = (selectedMech) => {
     setSelectedMechanic(selectedMech);
@@ -55,7 +55,6 @@ const Map = (props) => {
 
   const fetchDirections = (position) => {
     if (!currentLocation) return;
-    console.log(position);
     const service = new window.google.maps.DirectionsService();
     service.route(
       {
@@ -70,7 +69,6 @@ const Map = (props) => {
       }
     );
   };
-  console.log(directions);
   return (
     <div className="container">
       <div className="location">

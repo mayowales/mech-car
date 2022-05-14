@@ -8,8 +8,6 @@ import axios from "axios";
 const Update = (props) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  console.log(props);
-  console.log(useParams());
   const [role, setRole] = React.useState(props.loggedInUser.role);
   const [name, setName] = React.useState(props.loggedInUser.name);
   const [email, setEmail] = React.useState(props.loggedInUser.email);
@@ -27,9 +25,7 @@ const Update = (props) => {
     event.preventDefault();
     updateUser(id, { name, email, password })
       .then((response) => {
-        console.log(response);
         props.setLoggedInUser(response);
-        console.log(props);
         navigate("/profile");
       })
       .catch((error) => console.log(error));
@@ -39,12 +35,10 @@ const Update = (props) => {
     updateUser(id, { name, email, streetName, streetNumber, postCode, city })
       .then((response) => {
         props.setLoggedInUser(response);
-        console.log(props);
         navigate("/profile");
       })
       .catch((error) => console.log(error));
   };
-  console.log(props);
   return (
     <div className="App">
       {props.loggedInUser.role === "driver" ? (

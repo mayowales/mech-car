@@ -22,7 +22,6 @@ const SignUp = (props) => {
       .then((response) => {
         if (response.status === 200) {
           props.setLoggedInUser(response.dta);
-          console.log(props);
           navigate("/");
         }
       })
@@ -43,7 +42,6 @@ const SignUp = (props) => {
       .then((response) => {
         if (response.status === 200) {
           props.setLoggedInUser(response.data);
-          console.log(props);
           navigate("/");
         }
       })

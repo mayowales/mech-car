@@ -27,12 +27,10 @@ const Location = (props) => {
 
   const handleSelect = async (val) => {
     setValue(val, false);
-    console.log(val);
     clearSuggestions();
 
     const results = await getGeocode({ address: val });
     const { lat, lng } = await getLatLng(results[0]);
-    console.log(lat, lng);
     props.setCurrentLocation({ lat, lng });
   };
 

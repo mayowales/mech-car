@@ -19,7 +19,6 @@ const Login = (props) => {
         // rapped in if statement
         if (response.status === 200) {
           props.setLoggedInUser(response.data);
-          console.log(props);
           navigate("/");
         }
       })
