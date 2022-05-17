@@ -1,13 +1,8 @@
 import React from "react";
 import { useState, useMemo, useCallback, useRef } from "react";
-import {
-  GoogleMap,
-  Marker,
-  DirectionsRenderer,
-  DirectionsService,
-  MarkerClusterer,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, DirectionsRenderer } from "@react-google-maps/api";
 import Location from "../components/Location";
+
 import { getGeocode, getLatLng } from "use-places-autocomplete";
 
 const Map = (props) => {
@@ -15,6 +10,17 @@ const Map = (props) => {
   const [mechLocations, setMechLocations] = useState([]);
   const [selectedMechanic, setSelectedMechanic] = useState(null);
   const [directions, setDirections] = useState();
+
+  // console.log('currentLocation:', currentLocation);
+
+  React.useEffect(() => {
+    navigator.geolocation.watchPosition((pos) => {
+      var lat = pos.coords.latitude;
+      var lng = pos.coords.longitude;
+      console.log('ME:::', lat, lng);
+      setCurrentLocation({ lat, lng })
+    });
+  }, [])
 
   const mapRef = useRef();
   const center = useMemo(
@@ -35,19 +41,21 @@ const Map = (props) => {
   const onLoad = useCallback((map) => (mapRef.current = map), []);
 
   const getAllLocations = async function (arr) {
-    return await Promise.all(arr.map(async (mech) => {
-      const parameter = {
-        address: mech.streetName + " ," + mech.streetNumber,
-      };
-      const geoCode = await getGeocode(parameter);
-      const { lat, lng } = getLatLng(geoCode[0]);
-      return { ...mech, lat, lng }
-    }));
+    return await Promise.all(
+      arr.map(async (mech) => {
+        const parameter = {
+          address: mech.streetName + " ," + mech.streetNumber,
+        };
+        const geoCode = await getGeocode(parameter);
+        const { lat, lng } = getLatLng(geoCode[0]);
+        return { ...mech, lat, lng };
+      })
+    );
   };
 
   getAllLocations(props.mechList)
-    .then(locations => setMechLocations(locations))
-    .catch(error => console.log(error));
+    .then((locations) => setMechLocations(locations))
+    .catch((error) => console.log(error));
 
   const handleMechMarkerClick = (selectedMech) => {
     setSelectedMechanic(selectedMech);
@@ -56,6 +64,7 @@ const Map = (props) => {
   const fetchDirections = (position) => {
     if (!currentLocation) return;
     const service = new window.google.maps.DirectionsService();
+
     service.route(
       {
         origin: position,
@@ -74,6 +83,7 @@ const Map = (props) => {
       <div className="location">
         <h4>Enter your location here:</h4>
         <Location
+          loggedInUser={props.loggedInUser}
           selectedMechanic={selectedMechanic}
           directions={directions}
           setCurrentLocation={(position) => {
@@ -82,6 +92,7 @@ const Map = (props) => {
           }}
         />
       </div>
+      {/* <div className="chat-body"></div> */}
       <div className="map">
         <GoogleMap
           zoom={10}

@@ -11,6 +11,7 @@ import { getAllMech } from "./services/userApi";
 import Navbar from "./components/Navbar.jsx";
 import MechDetails from "./components/MechDetails";
 import Update from "./components/Update";
+import ChatContainer from "./components/ChatContainer";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = React.useState(null);
@@ -55,11 +56,18 @@ function App() {
             loggedInUser={loggedInUser}
             setLoggedInUser={setLoggedInUser}
           />
+          {/* <ChatContainer loggedInUser={loggedInUser} /> */}
           <div>
             <Routes>
               <Route
                 path="/"
-                element={<Home mechList={mechList} setMechList={setMechList} />}
+                element={
+                  <Home
+                    mechList={mechList}
+                    setMechList={setMechList}
+                    loggedInUser={loggedInUser}
+                  />
+                }
               />
               <Route
                 path="/signup"
