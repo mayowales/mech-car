@@ -12,9 +12,13 @@ const Home = (props) => {
   return (
     <>
       <div>i am home</div>
-      {props.loggedInUser ? (
+      {props.loggedInUser.role === "driver" ? (
         <div>
-          <Map mechList={props.mechList} setMechList={props.setMechList} loggedInUser={props.loggedInUser} />
+          <Map
+            mechList={props.mechList}
+            setMechList={props.setMechList}
+            loggedInUser={props.loggedInUser}
+          />
         </div>
       ) : (
         <></>

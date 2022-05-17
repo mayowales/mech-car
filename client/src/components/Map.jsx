@@ -17,10 +17,10 @@ const Map = (props) => {
     navigator.geolocation.watchPosition((pos) => {
       var lat = pos.coords.latitude;
       var lng = pos.coords.longitude;
-      console.log('ME:::', lat, lng);
-      setCurrentLocation({ lat, lng })
+      console.log("ME:::", lat, lng);
+      setCurrentLocation({ lat, lng });
     });
-  }, [])
+  }, []);
 
   const mapRef = useRef();
   const center = useMemo(
