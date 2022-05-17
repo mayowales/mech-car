@@ -11,8 +11,10 @@ import {
   ComboboxOption,
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
+import ChatForm from "../components/ChatForm";
 
 const Location = (props) => {
+  const [displayChat, setDisplayChat] = React.useState(false);
   const {
     ready,
     value,
@@ -36,44 +38,57 @@ const Location = (props) => {
     props.setCurrentLocation({ lat, lng });
   };
 
+  const openChatBox = () => {
+    setDisplayChat(true);
+  };
   return (
     <>
-      <Combobox onSelect={handleSelect}>
-        <ComboboxInput
-          value={value}
-          onChange={handleInput}
-          disabled={!ready}
-          className="location-input"
-        />
-        <ComboboxPopover>
-          <ComboboxList>
-            {status === "OK" &&
-              data.map(({ place_id, description }) => (
-                <ComboboxOption key={place_id} value={description} />
-              ))}
-          </ComboboxList>
-        </ComboboxPopover>
-      </Combobox>
-      {props.selectedMechanic && (
-        <>
-          <div>
-            <h3>{props.selectedMechanic.name}</h3>
-            <p>{`${props.selectedMechanic.streetName} ${props.selectedMechanic.streetNumber}, ${props.selectedMechanic.city}`}</p>
-          </div>
-        </>
-      )}
-      {props.directions && (
-        <>
-          {" "}
-          <div>
-            <h5>
-              distance: {props.directions.routes[0].legs[0].distance.text}
-            </h5>
-            <h5>
-              duration: {props.directions.routes[0].legs[0].duration.text}
-            </h5>
-          </div>
-        </>
+      <div>
+        <Combobox onSelect={handleSelect}>
+          <ComboboxInput
+            value={value}
+            onChange={handleInput}
+            disabled={!ready}
+            className="location-input"
+          />
+          <ComboboxPopover>
+            <ComboboxList>
+              {status === "OK" &&
+                data.map(({ place_id, description }) => (
+                  <ComboboxOption key={place_id} value={description} />
+                ))}
+            </ComboboxList>
+          </ComboboxPopover>
+        </Combobox>
+        {props.selectedMechanic && (
+          <>
+            <div>
+              <h3>{props.selectedMechanic.name}</h3>
+
+              <p>{`${props.selectedMechanic.streetName} ${props.selectedMechanic.streetNumber}, ${props.selectedMechanic.city}`}</p>
+            </div>
+            <button onClick={openChatBox}>Chat</button>
+          </>
+        )}
+        {props.directions && (
+          <>
+            {" "}
+            <div>
+              <h5>
+                distance: {props.directions.routes[0].legs[0].distance.text}
+              </h5>
+              <h5>
+                duration: {props.directions.routes[0].legs[0].duration.text}
+              </h5>
+            </div>
+          </>
+        )}
+      </div>
+      {displayChat && (
+        <div className="chat">
+          <h3>Chat with {props.selectedMechanic.name}</h3>
+          <ChatForm />
+        </div>
       )}
     </>
   );

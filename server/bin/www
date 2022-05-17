@@ -28,8 +28,9 @@ const io = require("socket.io")(server, {
 });
 
 io.on("connection", (socket) => {
-  socket.on("message", (messageData) => {
-    io.emit("message", messageData);
+  console.log("a user connected");
+  socket.on("message", (anotherSocketId, messageData) => {
+    socket.to(anotherSocketId).emit("message", socket.id, messageData);
   });
 });
 

@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useMemo, useCallback, useRef } from "react";
 import { GoogleMap, Marker, DirectionsRenderer } from "@react-google-maps/api";
 import Location from "../components/Location";
+
 import { getGeocode, getLatLng } from "use-places-autocomplete";
 
 const Map = (props) => {
@@ -80,6 +81,7 @@ const Map = (props) => {
           }}
         />
       </div>
+      {/* <div className="chat-body"></div> */}
       <div className="map">
         <GoogleMap
           zoom={10}

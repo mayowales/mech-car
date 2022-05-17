@@ -73,4 +73,7 @@ app.use("/api/auth", auth);
 const user = require("./routes/users");
 app.use("/api/user", user);
 
+const chatRoutes = require("./routes/chat");
+app.use("/api/chat", chatRoutes);
+
 module.exports = app;

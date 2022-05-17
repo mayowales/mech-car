@@ -5,6 +5,7 @@
     padding: 10px;
     margin: auto;
     background-image: url("https: //apastyle.apa.org/images/mechanics-of-style-category_tcm11-285736_w1024_n.png");
+   
 }
 
 .container {
@@ -19,11 +20,23 @@
     background: #37360f;
     color: #fff;
     height: 600px;
+    
+}
+
+.chat{
+    width: 320px;
+    padding: 1rem;
+    background: #57570a;
+    color: #fff;
+    height: 600px;
+    z-index:1;
+    position:relative
 }
 
 .map {
 width: 80%;
 height: 100vh;
+
 }
 
 header {
@@ -76,3 +89,118 @@ input {
     background-color: #ddd;
     text-align: center;
 }
+
+.chat-window {
+    width: 300px;
+    height: 420px;
+}
+
+.chat-window .chat-body {
+    height: calc(450px - (45px + 70px));
+    border: 1px solid #263238;
+    background: #fff;
+
+    position: relative;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .chat-window .chat-body .message-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.chat-window .chat-body .message-container::-webkit-scrollbar {
+    display: none;
+}
+
+.chat-window .chat-body .message {
+    height: auto;
+    padding: 10px;
+    display: flex;
+}
+
+.chat-window .chat-body .message .message-content {
+    width: auto;
+    height: auto;
+    min-height: 40px;
+    max-width: 120px;
+    background-color: #43a047;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+    margin-left: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+} */
