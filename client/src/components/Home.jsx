@@ -15,6 +15,9 @@ const Home = (props) => {
       {props.loggedInUser.role === "driver" ? (
         <div>
           <Map
+            setDisplayChat={props.setDisplayChat}
+            setSelectedMechanic={props.setSelectedMechanic}
+            selectedMechanic={props.selectedMechanic}
             mechList={props.mechList}
             setMechList={props.setMechList}
             loggedInUser={props.loggedInUser}

@@ -11,10 +11,10 @@ import {
   ComboboxOption,
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
-import ChatForm from "../components/ChatForm";
+// import ChatForm from "../components/ChatForm";
 
 const Location = (props) => {
-  const [displayChat, setDisplayChat] = React.useState(false);
+  // const [displayChat, setDisplayChat] = React.useState(false);
   const {
     ready,
     value,
@@ -36,9 +36,9 @@ const Location = (props) => {
     props.setCurrentLocation({ lat, lng });
   };
 
-  const openChatBox = () => {
-    setDisplayChat(true);
-  };
+  // const openChatBox = () => {
+  //   setDisplayChat(true);
+  // };
   return (
     <>
       <div>
@@ -65,7 +65,7 @@ const Location = (props) => {
 
               <p>{`${props.selectedMechanic.streetName} ${props.selectedMechanic.streetNumber}, ${props.selectedMechanic.city}`}</p>
             </div>
-            <button onClick={openChatBox}>Chat</button>
+            <button onClick={() => props.setDisplayChat(true)}>Chat</button>
           </>
         )}
         {props.directions && (
@@ -82,9 +82,9 @@ const Location = (props) => {
           </>
         )}
       </div>
-      {displayChat && (
+      {/* {displayChat && (
         <ChatForm loggedInUser={props.loggedInUser} mechanic={props.selectedMechanic} />
-      )}
+      )} */}
     </>
   );
 };

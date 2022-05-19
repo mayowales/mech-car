@@ -1,42 +1,30 @@
 import React from "react";
-import io from "socket.io-client";
+// import io from "socket.io-client";
 import { sendMessage, previousMessage } from '../services/chatApi';
 
-const ChatForm = ({ loggedInUser, mechanic }) => {
-
-  const [feed, setFeed] = React.useState([]);
+const ChatForm = ({ socketRef, loggedInUser, mechanic, feed, setFeed }) => {
 
   const [message, setMessage] = React.useState('');
 
-  const socketRef = React.useRef();
-
   React.useEffect(() => {
-    previousMessage().then(res => setFeed(res.data)).catch(err => console.log(err))
-  }, []);
+    previousMessage([
+      loggedInUser._id,
+      mechanic._id
+    ]).then(res => setFeed(res.data)).catch(err => console.log(err))
+  }, [loggedInUser._id, mechanic._id, setFeed]);
 
-  React.useEffect(() => {
-    socketRef.current = io.connect(process.env.REACT_APP_API_BASE_URL);
-    socketRef.current.on("message", (messageData) => {
-      setFeed([...feed, messageData])
-    });
-    return () => socketRef.current.disconnect();
-  }, [feed]);
 
   const handleSendMessage = (event) => {
     event.preventDefault();
-    sendMessage(loggedInUser, message).then(response => {
-      const savedMessage = response.data;
-      setFeed([...feed, savedMessage])
-      socketRef.current.emit("message", { ...savedMessage, sendBy: loggedInUser })
+    sendMessage(feed._id, message).then(response => {
+      const newFeed = response.data;
+      setFeed({ ...feed, messages: newFeed.messages })
+      socketRef.current.emit("message", { ...message, sendBy: loggedInUser })
       setMessage('');
     }).catch(err => console.log(err))
-    // chat.sendMessage(loggedInUser, newMessage).then(response => {
-    // socketRef.current.emit("message", { ...response.data, sendBy: loggedInUser })
-    // setFeed([...feed, { ...response.data, sendBy: loggedInUser }]);
-    // }).catch(err => console.log(err));
   };
 
-  const messageBubble = feed.map(message => {
+  const messageBubble = feed.messages.map(message => {
     return (
       <p key={message._id}>{message.message}</p>
     )

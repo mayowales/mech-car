@@ -8,7 +8,7 @@ import { getGeocode, getLatLng } from "use-places-autocomplete";
 const Map = (props) => {
   const [currentLocation, setCurrentLocation] = useState();
   const [mechLocations, setMechLocations] = useState([]);
-  const [selectedMechanic, setSelectedMechanic] = useState(null);
+  // const [selectedMechanic, setSelectedMechanic] = useState(null);
   const [directions, setDirections] = useState();
 
   // console.log('currentLocation:', currentLocation);
@@ -58,7 +58,7 @@ const Map = (props) => {
     .catch((error) => console.log(error));
 
   const handleMechMarkerClick = (selectedMech) => {
-    setSelectedMechanic(selectedMech);
+    props.setSelectedMechanic(selectedMech);
   };
 
   const fetchDirections = (position) => {
@@ -83,8 +83,9 @@ const Map = (props) => {
       <div className="location">
         <h4>Enter your location here:</h4>
         <Location
+          setDisplayChat={props.setDisplayChat}
           loggedInUser={props.loggedInUser}
-          selectedMechanic={selectedMechanic}
+          selectedMechanic={props.selectedMechanic}
           directions={directions}
           setCurrentLocation={(position) => {
             setCurrentLocation(position);

@@ -6,48 +6,66 @@ import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import axios from "axios";
-// import { logout } from "./services/auth";
 import { getAllMech } from "./services/userApi";
 import Navbar from "./components/Navbar.jsx";
 import MechDetails from "./components/MechDetails";
 import Update from "./components/Update";
-import ChatContainer from "./components/ChatContainer";
+import { sendMessage, previousMessage } from './services/chatApi';
+import io from "socket.io-client";
+import ChatForm from './components/ChatForm';
+
 
 function App() {
   const [loggedInUser, setLoggedInUser] = React.useState(null);
   const [mechList, setMechList] = React.useState([]);
-
   const [loading, setLoading] = React.useState(true);
+
+  const [selectedMechanic, setSelectedMechanic] = React.useState(null);
+  const [displayChat, setDisplayChat] = React.useState(false);
+
+
+
+
   React.useEffect(() => {
     axios
       .get("/api/auth/loggedin")
       .then((response) => {
         setLoggedInUser(response.data);
         setLoading(false);
+        getAllMech()
+          .then((response) => {
+            const mechanics = response;
+            setMechList(mechanics);
+          })
       })
       .catch((err) => console.log(err));
+  }, []);
+
+
+  const [feed, setFeed] = React.useState([]);
+
+
+  const socketRef = React.useRef();
+
+  React.useEffect(() => {
+    feed && previousMessage(feed._id).then(res => setFeed(res.data)).catch(err => console.log(err))
   }, []);
 
   React.useEffect(() => {
-    getAllMech()
-      .then((response) => {
-        const mechanics = response;
-        setMechList(mechanics);
-      })
-      .catch((err) => console.log(err));
+    socketRef.current = io.connect(process.env.REACT_APP_API_BASE_URL);
+    socketRef.current.on("message", (messageData) => {
+      console.log('got it:', messageData)
+      // setDisplayChat(true)
+      setFeed([...feed, messageData])
+    });
+    return () => socketRef.current.disconnect();
   }, []);
-  // const logoutHandler = () => {
-  //   logout()
-  //     .then(() => prop.setLoggedInUser(null))
-  //     .catch((err) => console.log(err));
-  // };
 
   return (
     <div className="App">
-      {/* <h1>{loggedInUser ? loggedInUser.name : ""}</h1> */}
-      {/* <button type="button" onClick={logoutHandler}>
-        Logout
-      </button> */}
+
+      {displayChat && <ChatForm socketRef={socketRef} feed={feed} setFeed={setFeed} loggedInUser={loggedInUser} mechanic={selectedMechanic} />}
+
       {loading ? (
         <h1>loading</h1>
       ) : (
@@ -56,13 +74,15 @@ function App() {
             loggedInUser={loggedInUser}
             setLoggedInUser={setLoggedInUser}
           />
-          {/* <ChatContainer loggedInUser={loggedInUser} /> */}
           <div>
             <Routes>
               <Route
                 path="/"
                 element={
                   <Home
+                    setDisplayChat={setDisplayChat}
+                    setSelectedMechanic={setSelectedMechanic}
+                    selectedMechanic={selectedMechanic}
                     mechList={mechList}
                     setMechList={setMechList}
                     loggedInUser={loggedInUser}
