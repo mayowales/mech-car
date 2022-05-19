@@ -13,7 +13,7 @@ import Update from "./components/Update";
 import { sendMessage, previousMessage } from './services/chatApi';
 import io from "socket.io-client";
 import ChatForm from './components/ChatForm';
-
+import Footer from "./components/Footer";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = React.useState(null);
@@ -55,7 +55,7 @@ function App() {
     socketRef.current = io.connect(process.env.REACT_APP_API_BASE_URL);
     socketRef.current.on("message", (messageData) => {
       console.log('got it:', messageData)
-      // setDisplayChat(true)
+      setDisplayChat(true)
       setFeed([...feed, messageData])
     });
     return () => socketRef.current.disconnect();
@@ -129,6 +129,7 @@ function App() {
               />
             </Routes>
           </div>
+          <Footer />
         </div>
       )}
     </div>

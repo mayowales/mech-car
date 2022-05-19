@@ -43,65 +43,69 @@ const Update = (props) => {
     <div className="App">
       {props.loggedInUser.role === "driver" ? (
         <>
-          <form onSubmit={updateDriverHandle}>
-            <input
-              type="text"
-              defaultValue={props.loggedInUser.name}
-              name="name"
-              onChange={(event) => setName(event.target.value)}
-            />
-            <input
-              type="email"
-              defaultValue={props.loggedInUser.email}
-              name="email"
-              onChange={(event) => setEmail(event.target.value)}
-            />
+          <div className="form-container">
+            <form onSubmit={updateDriverHandle}>
+              <input
+                type="text"
+                defaultValue={props.loggedInUser.name}
+                name="name"
+                onChange={(event) => setName(event.target.value)}
+              />
+              <input
+                type="email"
+                defaultValue={props.loggedInUser.email}
+                name="email"
+                onChange={(event) => setEmail(event.target.value)}
+              />
 
-            <button>Update info</button>
-          </form>
+              <button>Update info</button>
+            </form>
+          </div>
         </>
       ) : (
         <>
-          <form onSubmit={updateMechHandle}>
-            <input
-              type="text"
-              defaultValue={props.loggedInUser.name}
-              name="name"
-              onChange={(event) => setName(event.target.value)}
-            />
-            <input
-              type="email"
-              defaultValue={props.loggedInUser.email}
-              name="email"
-              onChange={(event) => setEmail(event.target.value)}
-            />
+          <div className="form-container">
+            <form onSubmit={updateMechHandle}>
+              <input
+                type="text"
+                defaultValue={props.loggedInUser.name}
+                name="name"
+                onChange={(event) => setName(event.target.value)}
+              />
+              <input
+                type="email"
+                defaultValue={props.loggedInUser.email}
+                name="email"
+                onChange={(event) => setEmail(event.target.value)}
+              />
 
-            <input
-              type="streetName"
-              defaultValue={props.loggedInUser.streetName}
-              name="streetName"
-              onChange={(event) => setStreetName(event.target.value)}
-            />
-            <input
-              type="streetNumber"
-              defaultValue={props.loggedInUser.streetNumber}
-              name="streetNumber"
-              onChange={(event) => setStreetNumber(event.target.value)}
-            />
-            <input
-              type="postCode"
-              defaultValue={props.loggedInUser.postCode}
-              name="postCode"
-              onChange={(event) => setPostCode(event.target.value)}
-            />
-            <input
-              type="city"
-              defaultValue={props.loggedInUser.city}
-              name="city"
-              onChange={(event) => setCity(event.target.value)}
-            />
-            <button>Update info</button>
-          </form>
+              <input
+                type="streetName"
+                defaultValue={props.loggedInUser.streetName}
+                name="streetName"
+                onChange={(event) => setStreetName(event.target.value)}
+              />
+              <input
+                type="streetNumber"
+                defaultValue={props.loggedInUser.streetNumber}
+                name="streetNumber"
+                onChange={(event) => setStreetNumber(event.target.value)}
+              />
+              <input
+                type="postCode"
+                defaultValue={props.loggedInUser.postCode}
+                name="postCode"
+                onChange={(event) => setPostCode(event.target.value)}
+              />
+              <input
+                type="city"
+                defaultValue={props.loggedInUser.city}
+                name="city"
+                onChange={(event) => setCity(event.target.value)}
+              />
+              <button>Update info</button>
+            </form>
+          </div>
         </>
       )}
 

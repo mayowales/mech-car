@@ -1,42 +1,53 @@
+* {
+    /* background-color: burlywood; */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    /* background: url(https://apastyle.apa.org/images/mechanics-of-style-category_tcm11-285736_w1024_n.png); */
+}
+
 .App {
-    height: 100%;
+    height: 100vh;
     color: rgb(34, 34, 34);
     background-color: burlywood;
-    padding: 10px;
+    padding: 1px;
     margin: auto;
-    background-image: url("https: //apastyle.apa.org/images/mechanics-of-style-category_tcm11-285736_w1024_n.png");
 
 }
 
 .container {
     display: flex;
-    height: 100vh;
+    height: calc(100vh - 50px);
 
 }
 
 .location {
-    width: 20%;
+    width: 300px;
     padding: 1rem;
     background: #37360f;
     color: #fff;
     height: 600px;
-
 }
 
 .chat {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 51px;
+    left: 300px;
     width: 320px;
     padding: 1rem;
     background: #57570a;
     color: #fff;
     height: 600px;
     z-index: 1;
-    position: relative
 }
 
 .map {
-    width: 80%;
-    height: 100vh;
-
+    /* height: 100vh; */
+    display: flex;
+    flex: 1
 }
 
 header {
@@ -70,10 +81,25 @@ header>nav>a.active {
     padding: 0.5rem;
 }
 
+.form-container {
+    position: fixed;
+    display: flex;
+    top: 50%;
+    left: 50%;
+    width: 30em;
+    height: 18em;
+    margin-top: -9em;
+    /*set to a negative number 1/2 of your height*/
+    margin-left: -15em;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+
+}
+
 form {
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 100%;
     gap: 10px;
 
     border-radius: 8px;
@@ -81,6 +107,8 @@ form {
         0 8px 16px rgb(0 0 0 / 10%);
     box-sizing: border-box;
     margin: 10px 0 0;
+    /* align-items: center; */
+
 }
 
 input {
@@ -88,6 +116,15 @@ input {
     border: none;
     background-color: #ddd;
     text-align: center;
+}
+
+.profile {
+    height: 100vh;
+    padding: 40px;
+}
+
+.bottom {
+    background-color: burlywood;
 }
 
 .chat-window {
@@ -105,11 +142,39 @@ input {
 
 
 
+.mydiv {
+    position: fixed;
+    display: flex;
+    top: 50%;
+    left: 50%;
+    width: 30em;
+    height: 18em;
+    margin-top: -9em;
+    /*set to a negative number 1/2 of your height*/
+    margin-left: -15em;
+    /*set to a negative number 1/2 of your width*/
+    border: 1px solid #ccc;
+    opacity: 0.7;
+    box-shadow: 5px 10px #888888;
+    border-radius: 50px 20px;
+    align-items: center;
+
+    justify-content: center;
+    background: url(https://apastyle.apa.org/images/mechanics-of-style-category_tcm11-285736_w1024_n.png);
 
 
+}
 
+.home-1 {
+    margin-top: 40px;
+}
 
+.home-2 {
+    /* display: flex; */
+    margin-bottom: 50px;
+    justify-content: space-between;
 
+}
 
 
 

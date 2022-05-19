@@ -60,77 +60,81 @@ const SignUp = (props) => {
 
       {role === "driver" ? (
         <>
-          <form onSubmit={submitUserRegisteration}>
-            <input
-              type="text"
-              placeholder="John"
-              name="name"
-              onChange={(event) => setName(event.target.value)}
-            />
-            <input
-              type="email"
-              placeholder="john@doe.com"
-              name="email"
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="*********"
-              name="password"
-              onChange={(event) => setPassword(event.target.value)}
-            />
-            <button>Register</button>
-          </form>
+          <div className="form-container">
+            <form onSubmit={submitUserRegisteration}>
+              <input
+                type="text"
+                placeholder="John"
+                name="name"
+                onChange={(event) => setName(event.target.value)}
+              />
+              <input
+                type="email"
+                placeholder="john@doe.com"
+                name="email"
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <input
+                type="password"
+                placeholder="*********"
+                name="password"
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              <button>Register</button>
+            </form>
+          </div>
         </>
       ) : null}
 
       {role === "mechanic" ? (
         <>
-          <form onSubmit={submitUserMech}>
-            <input
-              type="text"
-              placeholder="John"
-              name="name"
-              onChange={(event) => setName(event.target.value)}
-            />
-            <input
-              type="email"
-              placeholder="john@doe.com"
-              name="email"
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="*********"
-              name="password"
-              onChange={(event) => setPassword(event.target.value)}
-            />
-            <input
-              type="streetName"
-              placeholder="Landsberger"
-              name="streetName"
-              onChange={(event) => setStreetName(event.target.value)}
-            />
-            <input
-              type="streetNumber"
-              placeholder="123"
-              name="streetNumber"
-              onChange={(event) => setStreetNumber(event.target.value)}
-            />
-            <input
-              type="postCode"
-              placeholder="00000"
-              name="postCode"
-              onChange={(event) => setPostCode(event.target.value)}
-            />
-            <input
-              type="city"
-              placeholder="Place"
-              name="city"
-              onChange={(event) => setCity(event.target.value)}
-            />
-            <button>Register</button>
-          </form>
+          <div className="form-container">
+            <form onSubmit={submitUserMech}>
+              <input
+                type="text"
+                placeholder="John"
+                name="name"
+                onChange={(event) => setName(event.target.value)}
+              />
+              <input
+                type="email"
+                placeholder="john@doe.com"
+                name="email"
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <input
+                type="password"
+                placeholder="*********"
+                name="password"
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              <input
+                type="streetName"
+                placeholder="Landsberger"
+                name="streetName"
+                onChange={(event) => setStreetName(event.target.value)}
+              />
+              <input
+                type="streetNumber"
+                placeholder="123"
+                name="streetNumber"
+                onChange={(event) => setStreetNumber(event.target.value)}
+              />
+              <input
+                type="postCode"
+                placeholder="00000"
+                name="postCode"
+                onChange={(event) => setPostCode(event.target.value)}
+              />
+              <input
+                type="city"
+                placeholder="Place"
+                name="city"
+                onChange={(event) => setCity(event.target.value)}
+              />
+              <button>Register</button>
+            </form>
+          </div>
         </>
       ) : null}
     </div>

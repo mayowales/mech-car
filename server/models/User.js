@@ -21,6 +21,10 @@ const userSchema = new Schema({
     enum: ["driver", "mechanic"],
     default: "driver",
   },
+  activeConversations: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Conversation'
+  }],
   streetName: String,
   streetNumber: String,
   postCode: Number,

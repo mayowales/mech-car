@@ -2,13 +2,9 @@ const { Schema, model } = require("mongoose");
 
 const conversationSchema = new Schema(
   {
-    participants: [{
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    }],
+    participants: [String],
     messages: [{
       type: Schema.Types.Mixed,
-      required: true,
     }],
   },
   {

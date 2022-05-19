@@ -10,8 +10,8 @@ const sendMessage = (convId, messageData) => {
     });
 }
 
-const previousMessage = (participants) => {
-  return axios.post(`/api/chat/`, { participants });
+const previousMessage = () => {
+  return axios.get(`/api/chat/`);
 };
 
 export { sendMessage, previousMessage };

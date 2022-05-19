@@ -22,24 +22,42 @@ const Profile = (props) => {
   });
 
   return (
-    <div>
+    <div className="profile w3-row-padding">
       {props.loggedInUser.role === "driver" ? (
         <>
-          <h4>Hello {props.loggedInUser.name}</h4>
-          <h4>Hello {props.loggedInUser.role}</h4>
-          <h3>List of all Mechnic:</h3>
-          <div>{listOfAllMech}</div>
+          <div className="user-detail w3-third">
+            <h4>
+              {" "}
+              <i class="fa fa-user"> {props.loggedInUser.name}</i>
+            </h4>
+            <h4>Hello {props.loggedInUser.role}</h4>
+          </div>
+          <div className="list-of-mech w3-twothird">
+            <h3>List of all Mechnic:</h3> <hr />
+            <ul class="w3-ul w3-border">
+              <li>{listOfAllMech}</li>
+            </ul>
+          </div>
         </>
       ) : null}
       {props.loggedInUser.role === "mechanic" ? (
         <>
-          <h4>Hello {props.loggedInUser.name}</h4>
-          <h4>Hello {props.loggedInUser.role}</h4>
-          <p>
-            Address: {props.loggedInUser.streetName}{" "}
-            {props.loggedInUser.streetNumber}, {props.loggedInUser.postCode}{" "}
-            {props.loggedInUser.city}
-          </p>
+          <div className="user-detail w3-third">
+            <h4>
+              <i class="fa fa-user"> {props.loggedInUser.name}</i>
+            </h4>
+            <h4>
+              <i class="fa fa-wrench"> {props.loggedInUser.role}</i>{" "}
+            </h4>
+            <p>
+              <i class="fa fa-address-card">
+                {" "}
+                {props.loggedInUser.streetName}{" "}
+                {props.loggedInUser.streetNumber}, {props.loggedInUser.postCode}{" "}
+                {props.loggedInUser.city}{" "}
+              </i>
+            </p>
+          </div>
         </>
       ) : null}
     </div>

@@ -19,17 +19,22 @@ function MechDetails() {
   }, []);
 
   return (
-    <div>
+    <div className="profile w3-row-padding">
       {loading ? (
         <h1>loading</h1>
       ) : (
         <>
           <h1>MechDetails</h1>
-          <p>{mechanicDetail.name}</p>
           <p>
-            Address: {mechanicDetail.streetName}
-            {mechanicDetail.streetNumber}, {mechanicDetail.postCode}
-            {mechanicDetail.city}
+            <i class="fa fa-wrench"> {mechanicDetail.name}</i>
+          </p>
+          <p>
+            <i class="fa fa-address-card">
+              {" "}
+              {mechanicDetail.streetName}
+              {mechanicDetail.streetNumber}, {mechanicDetail.postCode}
+              {mechanicDetail.city}
+            </i>
           </p>
         </>
       )}

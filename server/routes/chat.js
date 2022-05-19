@@ -1,20 +1,20 @@
 const router = require("express").Router();
 const Conversation = require("../models/Conversation");
 
-router.post("/", (req, res) => {
-  const { participants } = req.body;
-  Conversation.find({ "participants": { "$all": participants } })
-    .then(match => {
-      if (!match.length) {
-        const newConv = new Conversation({
-          participants
-        });
-        newConv.save().then(conv => res.json(conv))
-      } else {
-        res.json(match[0])
-      }
-    }).catch(err => console.log(err))
-});
+// router.get("/", (req, res) => {
+//   Conversation.findOne({ "participants": { $all: participants } })
+//     .then(match => {
+//       console.log('match:', match)
+//       if (!match) {
+//         const newConv = new Conversation({
+//           participants
+//         });
+//         newConv.save().then(conv => res.json(conv))
+//       } else {
+//         res.json(match)
+//       }
+//     }).catch(err => console.log(err))
+// });
 
 router.post('/:id/new-message', (req, res) => {
   const { id } = req.params;
@@ -28,6 +28,12 @@ router.post('/:id/new-message', (req, res) => {
       new: true
     }
   ).then(updatedConversation => {
+    if (!updatedConversation) {
+      Conversation.create({
+
+      })
+    }
+    console.log('updatedConversation:', updatedConversation)
     res.json(updatedConversation)
   }).catch(err => console.log(err))
 })

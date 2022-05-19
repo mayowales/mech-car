@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useJsApiLoader } from "@react-google-maps/api";
 import Map from "../components/Map";
 
@@ -11,7 +12,6 @@ const Home = (props) => {
   if (!isLoaded) return <div>Loading...</div>;
   return (
     <>
-      <div>i am home</div>
       {props.loggedInUser.role === "driver" ? (
         <div>
           <Map
@@ -24,7 +24,26 @@ const Home = (props) => {
           />
         </div>
       ) : (
-        <></>
+        <>
+          <div className="mydiv w3-container ">
+            <div className="home-1 w3-display-topmiddle w3-hide-small ">
+              <img
+                class="blur"
+                src="https://images-na.ssl-images-amazon.com/images/I/81fmprLRDhL.png"
+                width="150"
+                height="120"
+              ></img>
+            </div>
+            <div className="home-2 w3-display-bottommiddle w3-hide-small ">
+              <Link to="/signup">
+                <button class="w3-button w3-black">Register</button>
+              </Link>{" "}
+              <Link to="/login">
+                <button class="w3-button w3-teal">Login</button>
+              </Link>
+            </div>
+          </div>
+        </>
       )}
     </>
   );
