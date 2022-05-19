@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { login } from "../services/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = (props) => {
   const navigate = useNavigate();
@@ -41,6 +41,9 @@ const Login = (props) => {
           value={password}
         />
         <button>Login</button>
+        <Link to="/signup">
+          <button>register if you are not a user</button>
+        </Link>
       </form>
     </div>
   );
