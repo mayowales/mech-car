@@ -41,7 +41,11 @@ const Navbar = (props) => {
             >
               Edit
             </NavLink>
-            <button type="button" onClick={logoutHandler}>
+            <button
+              type="button"
+              class="w3-btn w3-teal"
+              onClick={logoutHandler}
+            >
               Logout
             </button>
           </>

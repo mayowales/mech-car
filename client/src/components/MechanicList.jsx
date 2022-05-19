@@ -8,7 +8,7 @@ const MechanicList = (props) => {
       <Link to={`/profile/${mech._id}`}>
         <h4>{mech.name}</h4>
         <h4>
-          {mech.streetName} {mech.streetNumber}
+          {mech.streetName} {mech.streetNumber} <hr />
         </h4>
       </Link>
     </div>

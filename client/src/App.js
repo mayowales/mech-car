@@ -12,6 +12,7 @@ import Navbar from "./components/Navbar.jsx";
 import MechDetails from "./components/MechDetails";
 import Update from "./components/Update";
 import ChatContainer from "./components/ChatContainer";
+import Footer from "./components/Footer";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = React.useState(null);
@@ -51,65 +52,69 @@ function App() {
       {loading ? (
         <h1>loading</h1>
       ) : (
-        <div>
-          <Navbar
-            loggedInUser={loggedInUser}
-            setLoggedInUser={setLoggedInUser}
-          />
-          {/* <ChatContainer loggedInUser={loggedInUser} /> */}
+        <>
           <div>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Home
-                    mechList={mechList}
-                    setMechList={setMechList}
-                    loggedInUser={loggedInUser}
-                  />
-                }
-              />
-              <Route
-                path="/signup"
-                element={
-                  <SignUp
-                    loggedInUser={loggedInUser}
-                    setLoggedInUser={setLoggedInUser}
-                  />
-                }
-              />
-              <Route
-                path="/login"
-                element={
-                  <Login
-                    loggedInUser={loggedInUser}
-                    setLoggedInUser={setLoggedInUser}
-                  />
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  <Profile
-                    loggedInUser={loggedInUser}
-                    mechList={mechList}
-                    setMechList={setMechList}
-                  />
-                }
-              />
-              <Route path="/profile/:id" element={<MechDetails />} />
-              <Route
-                path="/profile/:id/edit"
-                element={
-                  <Update
-                    loggedInUser={loggedInUser}
-                    setLoggedInUser={setLoggedInUser}
-                  />
-                }
-              />
-            </Routes>
+            <Navbar
+              loggedInUser={loggedInUser}
+              setLoggedInUser={setLoggedInUser}
+            />
+            {/* <ChatContainer loggedInUser={loggedInUser} /> */}
+            <div>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <Home
+                      mechList={mechList}
+                      setMechList={setMechList}
+                      loggedInUser={loggedInUser}
+                    />
+                  }
+                />
+                <Route
+                  path="/signup"
+                  element={
+                    <SignUp
+                      loggedInUser={loggedInUser}
+                      setLoggedInUser={setLoggedInUser}
+                    />
+                  }
+                />
+                <Route
+                  path="/login"
+                  element={
+                    <Login
+                      loggedInUser={loggedInUser}
+                      setLoggedInUser={setLoggedInUser}
+                    />
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    <Profile
+                      loggedInUser={loggedInUser}
+                      mechList={mechList}
+                      setMechList={setMechList}
+                    />
+                  }
+                />
+                <Route path="/profile/:id" element={<MechDetails />} />
+                <Route
+                  path="/profile/:id/edit"
+                  element={
+                    <Update
+                      loggedInUser={loggedInUser}
+                      setLoggedInUser={setLoggedInUser}
+                    />
+                  }
+                />
+              </Routes>
+            </div>
           </div>
-        </div>
+
+          <Footer />
+        </>
       )}
     </div>
   );
