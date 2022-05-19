@@ -1,6 +1,6 @@
 import React from "react";
 import { signup } from "../services/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import axios from "axios";
 
@@ -81,6 +81,9 @@ const SignUp = (props) => {
                 onChange={(event) => setPassword(event.target.value)}
               />
               <button>Register</button>
+              <Link to="/login">
+                <button>Already a user? Click Here</button>
+              </Link>
             </form>
           </div>
         </>
@@ -133,6 +136,9 @@ const SignUp = (props) => {
                 onChange={(event) => setCity(event.target.value)}
               />
               <button>Register</button>
+              <Link to="/login">
+                <button>Already a user? Click Here</button>
+              </Link>
             </form>
           </div>
         </>

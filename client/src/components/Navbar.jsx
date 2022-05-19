@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 // import axios from "axios";
 import { logout } from "../services/auth";
 
@@ -9,8 +9,8 @@ const Navbar = (props) => {
   const logoutHandler = () => {
     logout()
       .then(() => {
-        props.setLoggedInUser(null);
         navigate("/");
+        props.setLoggedInUser(null);
       })
       .catch((err) => console.log(err));
   };
@@ -41,6 +41,7 @@ const Navbar = (props) => {
             >
               Edit
             </NavLink>
+
             <button
               type="button"
               class="w3-btn w3-teal"
